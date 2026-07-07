@@ -1,0 +1,129 @@
+/* ── Variables PNK Inmobiliaria ─────────────────────────── */
+:root {
+  --ink: #182320;
+  --muted: #63706c;
+  --brand: #0f4f47;
+  --brand-strong: #0a3732;
+  --accent: #c99a4a;
+  --accent-soft: #f4ead8;
+  --surface: #ffffff;
+  --surface-soft: #f6f8f5;
+  --line: #dbe3df;
+  --shadow: 0 18px 45px rgba(24,35,32,.12);
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Inter, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--surface-soft);
+  line-height: 1.6;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Botones ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 46px; padding: .7rem 1.25rem;
+  background: var(--brand); color: #fff;
+  border: 0; border-radius: var(--radius);
+  font: inherit; font-weight: 700; cursor: pointer;
+  text-decoration: none; transition: background .15s;
+}
+.btn:hover { background: var(--brand-strong); }
+.btn-outline {
+  background: transparent; color: var(--brand);
+  border: 1.5px solid var(--brand);
+}
+.btn-outline:hover { background: var(--brand); color: #fff; }
+.btn-danger { background: #b3261e; }
+.btn-danger:hover { background: #8c1a14; }
+
+/* ── Formularios ─────────────────────────────────────────── */
+label {
+  display: block; font-size: .88rem;
+  font-weight: 600; color: var(--muted);
+  margin-bottom: .35rem;
+}
+input, select, textarea {
+  width: 100%; min-height: 46px; padding: .7rem 1rem;
+  border: 1.5px solid var(--line); border-radius: var(--radius);
+  font: inherit; color: var(--ink); background: var(--surface);
+  transition: border-color .15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--brand);
+}
+textarea { min-height: 120px; resize: vertical; }
+.form-error { display: block; margin-top: .3rem; color: #b3261e; font-size: .83rem; font-weight: 600; }
+.form-note { display: block; margin-top: .3rem; color: var(--muted); font-size: .82rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-grid .full { grid-column: 1 / -1; }
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+.property-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 8px 24px rgba(24,35,32,.08);
+  display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.property-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.property-card img {
+  width: 100%; height: 220px; object-fit: cover;
+}
+.property-body { padding: 1.25rem; display: grid; gap: .5rem; flex: 1; }
+.property-body h3 { font-size: 1.05rem; font-weight: 800; }
+.property-body .price { font-size: 1.2rem; font-weight: 800; color: var(--brand); }
+.badge {
+  display: inline-flex; align-items: center;
+  padding: .2rem .6rem; background: var(--accent-soft);
+  color: var(--brand-strong); border-radius: 999px;
+  font-size: .75rem; font-weight: 800; width: fit-content;
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+.grid { display: grid; gap: 1.5rem; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } .form-grid { grid-template-columns: 1fr; } }
+
+/* ── Layout ──────────────────────────────────────────────── */
+.section { max-width: 1180px; margin: 0 auto; padding: 2rem 1.25rem; }
+.page-container { max-width: 1180px; margin: 0 auto; padding: 2rem 1.25rem; }
+
+/* ── Tabla ───────────────────────────────────────────────── */
+.tabla-admin { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.tabla-admin th, .tabla-admin td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid var(--line); }
+.tabla-admin th { background: var(--surface-soft); font-weight: 700; color: var(--brand-strong); }
+.tabla-admin tr:hover td { background: var(--surface-soft); }
+
+/* ── Paginación ──────────────────────────────────────────── */
+.paginacion { display: flex; gap: .5rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
+
+/* ── Notice ──────────────────────────────────────────────── */
+.notice {
+  padding: 1rem 1.25rem; border-radius: var(--radius);
+  background: var(--accent-soft); border: 1px solid rgba(201,154,74,.3);
+  color: var(--brand-strong);
+}
+
+/* ── Meta list ───────────────────────────────────────────── */
+.meta-list { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; }
+.meta-list li {
+  padding: .2rem .6rem; background: var(--surface-soft);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  font-size: .82rem;
+}
