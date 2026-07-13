@@ -59,14 +59,15 @@ export default function Buscador() {
     setSectores((DATOS[prov]?.sectores?.[c]) || [])
   }
 
-  async function buscar(e) {
+ async function buscar(e, filtrosOverride) {
     if (e) e.preventDefault()
     setCargando(true); setBuscado(true)
+    const f = filtrosOverride || filtros
     const params = new URLSearchParams({
-      tipo:      filtros.tipo,
-      provincia: filtros.provincia,
-      comuna:    filtros.comuna,
-      sector:    filtros.sector
+      tipo:      f.tipo,
+      provincia: f.provincia,
+      comuna:    f.comuna,
+      sector:    f.sector
     })
     const data = await apiFetch('/buscar_propiedades.php?' + params)
     if (data.ok) setPropiedades(data.propiedades || [])
@@ -74,9 +75,10 @@ export default function Buscador() {
   }
 
   function limpiar() {
-    setFiltros({ tipo:'', provincia:'', comuna:'', sector:'' })
+    const filtrosVacios = { tipo:'', provincia:'', comuna:'', sector:'' }
+    setFiltros(filtrosVacios)
     setComunas([]); setSectores([])
-    setTimeout(() => buscar(), 50)
+    buscar(null, filtrosVacios)
   }
 
   return (

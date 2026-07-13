@@ -219,8 +219,9 @@ export default function Dashboard() {
                   <td><span style={{ padding:'.2rem .6rem', borderRadius:999, background:badgeColor(p.estado), color:'#fff', fontSize:'.78rem', fontWeight:800 }}>{p.estado}</span></td>
                   <td>
                     <div style={{ display:'flex', gap:'.35rem', flexWrap:'wrap' }}>
-                      {p.estado === 'pendiente' && <button className="btn" style={{ ...btnSm, background:'#25a244' }} onClick={() => activarPropietario(p.id)}>Activar</button>}
-                      {p.estado === 'activo' && <button className="btn btn-outline" style={btnSm} onClick={() => desactivarPropietario(p.id)}>Desactivar</button>}
+                     {p.estado === 'pendiente' && <button className="btn" style={{ ...btnSm, background:'#25a244' }} onClick={() => activarPropietario(p.id)}>Activar</button>}
+                     {p.estado === 'activo' && <button className="btn btn-outline" style={btnSm} onClick={() => desactivarPropietario(p.id)}>Desactivar</button>}
+                     {p.estado === 'rechazado' && <button className="btn" style={{ ...btnSm, background:'#25a244' }} onClick={() => activarPropietario(p.id)}>Reactivar</button>}
                       <button className="btn btn-outline" style={btnSm} onClick={() => setModalModificar({ tipo:'propietario', datos: p })}>Modificar</button>
                       <button className="btn btn-danger" style={btnSm} onClick={() => eliminarPropietario(p.id)}>Eliminar</button>
                     </div>
@@ -244,7 +245,8 @@ export default function Dashboard() {
                   <td>
                     <div style={{ display:'flex', gap:'.35rem', flexWrap:'wrap' }}>
                       {g.estado === 'pendiente' && <button className="btn" style={{ ...btnSm, background:'#25a244' }} onClick={() => activarGestor(g.id)}>Aprobar</button>}
-                      {g.estado === 'aprobado' && <button className="btn btn-outline" style={btnSm} onClick={() => desactivarGestor(g.id)}>Desactivar</button>}
+                      {g.estado === 'activo' && <button className="btn btn-outline" style={btnSm} onClick={() => desactivarGestor(g.id)}>Desactivar</button>}
+                      {g.estado === 'rechazado' && <button className="btn" style={{ ...btnSm, background:'#25a244' }} onClick={() => activarGestor(g.id)}>Reactivar</button>}
                       <button className="btn btn-outline" style={btnSm} onClick={() => setModalModificar({ tipo:'gestor', datos: g })}>Modificar</button>
                       <button className="btn btn-danger" style={btnSm} onClick={() => eliminarGestor(g.id)}>Eliminar</button>
                     </div>

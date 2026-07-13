@@ -94,12 +94,12 @@ export default function EditarPropiedad() {
     if (!form.visita)      e.visita = 'Obligatorio.'
     if (!form.bodega)      e.bodega = 'Obligatorio.'
     if (!form.precio || Number(form.precio) <= 0) e.precio = 'Debe ser mayor a 0.'
-    if (!form.area_total || Number(form.area_total) <= 0) e.area_total = 'Obligatorio.'
+    if (form.area_total === '' || isNaN(form.area_total)) e.area_total = 'Obligatorio.'
 
     if (esCasaODepto) {
       if (!form.dormitorios || Number(form.dormitorios) < 1) e.dormitorios = 'Debe tener al menos 1 dormitorio.'
       if (!form.banos || Number(form.banos) < 1) e.banos = 'Debe tener al menos 1 baño.'
-      if (!form.area_construida || Number(form.area_construida) <= 0) e.area_construida = 'Obligatorio para Casa o Departamento.'
+      if (form.area_construida === '' || isNaN(form.area_construida)) e.area_construida = 'Obligatorio para Casa o Departamento.'
     }
     return e
   }
