@@ -104,7 +104,7 @@ export default function EditarPropiedad() {
     return e
   }
 
-  async function handleSubmit(e) {
+ async function handleSubmit(e) {
     e.preventDefault()
     const e2 = validar()
     if (Object.keys(e2).length) { setErrores(e2); return }
@@ -114,25 +114,40 @@ export default function EditarPropiedad() {
       ? String(Math.round(parseFloat(form.precio) / uf))
       : form.precio_uf
 
-    const data = await apiPost('/propiedades_api.php', {
-      accion: 'actualizar', id,
-      tipo: form.tipo, provincia: form.provincia, comuna: form.comuna, sector: form.sector,
-      dormitorios: form.dormitorios, banos: form.banos,
-      area_total: form.area_total, area_construida: form.area_construida,
-      precio_clp: form.precio, precio_uf: precioUfFinal,
-      descripcion: form.descripcion, visita: form.visita, bodega: form.bodega,
-      estacionamiento: form.estacionamiento, logia: form.logia,
-      cocina_amoblada: form.cocina_amoblada, antejardin: form.antejardin,
-      patio_trasero: form.patio_trasero, piscina: form.piscina,
-    })
+    const fd = new FormData()
+    fd.append('accion', 'actualizar')
+    fd.append('id', id)
+    fd.append('tipo', form.tipo)
+    fd.append('provincia', form.provincia)
+    fd.append('comuna', form.comuna)
+    fd.append('sector', form.sector)
+    fd.append('dormitorios', form.dormitorios)
+    fd.append('banos', form.banos)
+    fd.append('area_total', form.area_total)
+    fd.append('area_construida', form.area_construida)
+    fd.append('precio_clp', form.precio)
+    fd.append('precio_uf', precioUfFinal)
+    fd.append('descripcion', form.descripcion)
+    fd.append('visita', form.visita)
+    fd.append('bodega', form.bodega)
+    fd.append('estacionamiento', form.estacionamiento)
+    fd.append('logia', form.logia)
+    fd.append('cocina_amoblada', form.cocina_amoblada)
+    fd.append('antejardin', form.antejardin)
+    fd.append('patio_trasero', form.patio_trasero)
+    fd.append('piscina', form.piscina)
 
-    if (data.ok) {
-      await Swal.fire({ icon:'success', title:'Propiedad actualizada', timer:1500, showConfirmButton:false })
-      navigate(usuario?.rol === 'administrador' ? '/dashboard' : '/panel-propietario')
-    } else {
-      Swal.fire({ icon:'error', title:'Error', text: data.mensaje })
-    }
-    setGuardando(false)
+    try {
+      const res = await fetch('/api/propiedades_api.php', { method:'POST', credentials:'include', body: fd })
+      const data = await res.json()
+      if (data.ok) {
+        await Swal.fire({ icon:'success', title:'Propiedad actualizada', timer:1500, showConfirmButton:false })
+        navigate(usuario?.rol === 'administrador' ? '/dashboard' : '/panel-propietario')
+      } else {
+        Swal.fire({ icon:'error', title:'Error', html: Array.isArray(data.errores) ? data.errores.join('<br>') : data.mensaje })
+      }
+    } catch { Swal.fire({ icon:'error', title:'Error de conexión' }) }
+    finally { setGuardando(false) }
   }
 
   if (cargando || !form) return <div className="page-container"><p>Cargando...</p></div>
